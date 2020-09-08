@@ -170,7 +170,7 @@ export class Core {
     await toPromise(this.peripheral, this.peripheral.disconnect);
   }
 
-  public async configureSensorStream(): Promise<void> {
+  public async configureSensorStream(interval?: number): Promise<void> {
     const sensorMask = [
       SensorMaskValues.accelerometer,
       SensorMaskValues.orientation,
@@ -183,7 +183,7 @@ export class Core {
     await this.queueCommand(
       this.commands.sensor.sensorMask(
         flatSensorMask(this.sensorMask.v2),
-        SensorControlDefaults.interval
+        interval ? interval : SensorControlDefaults.interval
       )
     );
     if (this.sensorMask.v21.length > 0) {
